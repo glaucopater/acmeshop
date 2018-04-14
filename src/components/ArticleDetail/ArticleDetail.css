@@ -1,0 +1,15 @@
+
+.ArticleDetail{
+    padding:5px;
+    margin:5px;
+}
+
+
+.NameDetail {
+    display: inline;
+}
+
+.Image{
+    width:200px;
+    height: 200px;
+}
