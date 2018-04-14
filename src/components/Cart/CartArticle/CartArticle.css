@@ -8,24 +8,54 @@
 
 .Laptop {
     height: 20%;
-    width: 40%; 
-    
+    width: 40%;  
     box-shadow: inset -15px 0 #c15711;
     margin: 2% auto;
     position: relative;
 }
 
-.CartArticle{
-    display: inline-block; 
-    padding: 3px;
+.CartArticle {
+    display: block; 
+    padding: 10px 20px;
     font-weight: bold;
-    margin:3px;
-    border:1px solid #000;
+    margin:5px;
+    border:1px solid #ccc;
     height: 100px;
+    box-shadow:   0 8px 6px -6px black;
 }
 
 .Image{
     width:100px;
     height: 100px;
     vertical-align:middle;
+    float: right;
+}
+
+.ArticleLink { 
+    text-decoration: none; 
+    display: inline-block;
+    font: inherit;
+    padding: 5px;
+    margin: 0 5px;
+    width: 180px;
+    border: 1px solid #AA6817;
+    cursor: pointer;
+    outline: none;
+    background-color: rgb(48, 87, 170);
+    color: white;
+} 
+ 
+ 
+.ArticleLink:hover,.ArticleLink:active {
+    background-color: #99703F;
+    color: white;
+}
+
+
+
+@media (max-width: 500px) {
+    .Image{
+        width:50px;
+        height: 50px; 
+    }
 }

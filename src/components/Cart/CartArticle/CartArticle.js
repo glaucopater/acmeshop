@@ -8,8 +8,14 @@ class CartArticle extends Component {
         let article = null; 
 
         article = 
-        <div className={classes.CartArticle}>{this.props.name}
-            <img className={classes.Image} src={this.props.image} alt={this.props.name}/>
+        <div className={classes.CartArticle}>
+            <a className={classes.ArticleLink} href={"/article/"+this.props.sku}>{this.props.name}</a>
+            {this.props.priceAmount}  {this.props.priceCurrency}
+            <img className={classes.Image} 
+            src={this.props.image} 
+            alt={this.props.name}
+            />
+
         </div>;
 
         return article;

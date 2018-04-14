@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
-import ContactData from './ContactData/ContactData';
+import CompleteOrder from './CompleteOrder/CompleteOrder';
 
 class Checkout extends Component {
     state = {
@@ -12,6 +12,7 @@ class Checkout extends Component {
 
     componentWillMount () {
         const query = new URLSearchParams( this.props.location.search );
+        console.log("query" + query);
         const cartArticles = {};
         let price = 0;
         for ( let param of query.entries() ) {
@@ -32,7 +33,7 @@ class Checkout extends Component {
     }
 
     checkoutContinuedHandler = () => {
-        this.props.history.replace( '/checkout/contact-data' );
+        this.props.history.replace( '/checkout/complete-order' );
     }
 
     render () {
@@ -43,8 +44,8 @@ class Checkout extends Component {
                     checkoutCancelled={this.checkoutCancelledHandler}
                     checkoutContinued={this.checkoutContinuedHandler} />
                 <Route 
-                    path={this.props.match.path + '/contact-data'} 
-                    render={(props) => (<ContactData cartArticles={this.state.cartArticles} price={this.state.totalPrice} {...props} />)} />
+                    path={this.props.match.path + '/complete-order'} 
+                    render={(props) => (<CompleteOrder cartArticles={this.state.cartArticles} price={this.state.totalPrice} {...props} />)} />
             </div>
         );
     }

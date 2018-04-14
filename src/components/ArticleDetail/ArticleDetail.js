@@ -10,7 +10,10 @@ function createMarkup(htmlCode) {
 const ArticleDetail = (props) => (
     <div className={classes.ArticleDetail} >
         <h2>{props.name}</h2>
-        <div><img className={classes.Image} src={props.image} alt={props.name}/></div>   
+        <div>
+            <img className={classes.Image} src={props.image} alt={props.name}/>
+        </div>   
+        <div className={classes.Price}>{props.priceAmount} {props.priceCurrency}</div>
         <div dangerouslySetInnerHTML={createMarkup(props.description)} />          
     </div>
 )
