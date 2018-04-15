@@ -216,17 +216,29 @@ class CartPage extends Component {
         let cart = this.state.error ? <p>articles can't be loaded!</p> : <Spinner />;
 
         if ( this.state.articles ) {
-            let controls = [];
-            let currentArticles = this.state.articles;
-            for (var i=0;i< currentArticles.length;i++){
-                controls.push(currentArticles[i]);
-            }
+             
+            let currentArticles = this.state.articles;           
+            const controls = [...new Set(this.state.cartArticles)];  
+          
+            /*
+            var ca = this.state.cartArticles;
+            var countedNames = ca.reduce(function (allNames.sku, sku) { 
+                if (sku in allNames) {
+                allNames[sku]++;
+                }
+                else {
+                allNames[sku] = 1;
+                }
+                return allNames;
+            }, {});
+            console.log(countedNames);*/
+            
             cart = (
                 <Aux>
                     <h1>My Cart</h1>
                     <Cart articles={this.state.cartArticles} />
                     <BuildControls
-                        controls = {this.state.cartArticles}
+                        controls = {controls}
                         articleAdded={this.addArticleHandler}
                         articleRemoved={this.removeArticleHandler}
                         disabled={disabledInfo}
