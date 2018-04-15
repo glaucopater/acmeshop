@@ -16,7 +16,6 @@ class CartArticle extends Component {
             src={this.props.image} 
             alt={this.props.name}
             /> 
-
         </div>;
 
         return article;

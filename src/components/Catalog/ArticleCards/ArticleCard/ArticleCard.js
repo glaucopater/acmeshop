@@ -14,7 +14,7 @@ const articleCard = (props) => (
                  {props.priceAmount}  {props.ArticleCardCurrency}</div>
                 <button 
                 className={classes.ArticleCardButton} 
-                 onClick={props.added}>Add to cart</button>
+                onClick={props.added}>Add to cart</button>
             </div>
     </div>
 );

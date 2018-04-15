@@ -10,21 +10,19 @@ class OrderSummaryBar extends Component {
 
         //get history of cart:
         //it can be used instead of cookies
-        //it can be used between different pages
-        if (window.localStorage.newCart) {
-            let cart =  JSON.parse(window.localStorage.newCart);
-            for (let line in cart.lines){
-                totalItems += cart.lines[line].quantity;
-            }                         
-            totalPrice = cart.total.amount; 
-        } 
+        //it can be used between different pages 
 
-        
- 
-        if(this.props.price!==0){
-            totalItems = totalItems + this.props.articles.length;
-            totalPrice = totalPrice + this.props.price;
-        }
+        let newCart = null;
+        if (this.props.cart )// && this.props.cart && typeof this.props.cart !== "undefined")
+        {
+            newCart = this.props.cart;
+        }  
+        if(newCart){
+            for (let line in newCart.lines){
+                totalItems += newCart.lines[line].quantity;
+            }                         
+            totalPrice = newCart.total.amount; 
+        } 
         return (
             <div className={classes.OrderSummaryBar}>                
                 <div  className={classes.TotalItems}>Total items: {totalItems}</div>

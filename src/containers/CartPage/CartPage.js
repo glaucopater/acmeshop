@@ -21,6 +21,7 @@ class CartPage extends Component {
     state = {
         articles: null,
         cartArticles: [],
+        transformedCart: null,
         availableSkus: [],
         totalPrice: 0,
         purchasable: false,
@@ -30,14 +31,50 @@ class CartPage extends Component {
     }
 
     componentDidMount () {  
+
+        if (typeof window.localStorage.newCart === "string"){ 
+            const newCart = JSON.parse(window.localStorage.newCart);
+            if (newCart){           
+                this.setState({transformedCart:newCart});
+            }            
+        } 
       this.getArticles();
+    }
+
+    restoreCartArticles(){ 
+        let cartSkus = [];
+        let cartLines = []; 
+
+        let updateCartArticles = this.state.cartArticles;
+        for(let i=0;i<this.state.transformedCart.lines.length;i++){
+            cartLines.push({sku:this.state.transformedCart.lines[i].sku,
+                            quantity:this.state.transformedCart.lines[i].quantity}
+                        );
+            cartSkus.push(this.state.transformedCart.lines[i].sku);
+        } 
+
+        for(let i=0;i<this.state.articles.length;i++){
+            let currentArticle = this.state.articles[i];
+            let skuIndex = cartSkus.indexOf(currentArticle.sku);
+            if (skuIndex!==-1)
+            { 
+                for(let j=0;j<cartLines[skuIndex].quantity;j++){ 
+                    updateCartArticles.push(currentArticle);
+                }
+            } 
+          
+        }
+ 
+        this.setState({cartArticles:updateCartArticles});
     }
 
     getArticles(){
         axios.get( '/catalog' )
         .then( response => {
             const articles = response.data.articles;
-            this.setState( { articles: articles } );
+            this.setState( { articles: articles } ); 
+            this.restoreCartArticles();
+
         } )
         .catch( error => {
             console.log(error);
@@ -59,18 +96,18 @@ class CartPage extends Component {
     //adapt server cart response according to the existing articles sku
     transformServerCart(newCart){
         const availableSkus = this.state.availableSkus;
-        console.log("availableSkus", availableSkus);
+        let transformedCart = {};
+        let lines = []; 
         for(const key in newCart.lines){
-            if (availableSkus.indexOf(newCart.lines[key].sku)!==-1){ 
-                console.log("sku is in " , newCart.lines[key]);
-            }
-            else 
-                console.log("extra line" , newCart.lines[key]);
-            
+            if (availableSkus.indexOf(newCart.lines[key].sku)!==-1){  
+                lines.push(newCart.lines[key]);
+            }             
         }
+        transformedCart.lines = lines;
+        transformedCart.total = newCart.total;
         //update price amount
-        this.setState({totalPrice:newCart.total.amount});
-        
+        this.setState({totalPrice:newCart.total.amount});  
+        return transformedCart;
     }
 
     updateAvailableSkus(availableSkus){
@@ -80,36 +117,27 @@ class CartPage extends Component {
     updateCart(){
         const cartArticles = this.state.cartArticles;
         let cart = {};
-        let lines = [];
-  
+        let lines = [];  
         let articlesSkus=[];
 
         for (let i=0;i<cartArticles.length;i++){
             articlesSkus.push(cartArticles[i].sku);           
-        } 
-        console.log("articlesSkus ", articlesSkus);  
-
+        }    
         const uniqueSkus = [...new Set(cartArticles.map(item => item.sku))];
-        console.log("uniqueSkus ", uniqueSkus);
-        //this.updateAvailableSkus(uniqueSkus);
-        console.log("availableSkus ", uniqueSkus);
-
         for (let i=0;i<uniqueSkus.length;i++){
             const qty = this.getArticleQuantityBySku(uniqueSkus[i]);
             lines.push({"sku":uniqueSkus[i],"quantity":qty});  
         } 
 
         cart.lines = lines;
-
-        console.log("cart", cart);
         this.updateAvailableSkus(uniqueSkus);
-
         axios.put( '/cart',cart )
         .then( response => {
-            const newCart = response.data;
-            console.log("newCart",newCart);
-           // this.setState( { totalPrice:newCart.total.amount  } );
-           this.transformServerCart(newCart);
+            const newCart = response.data; 
+            console.log("newCart ", newCart);
+            let transformedCart = this.transformServerCart(newCart);
+            this.setState({transformedCart:transformedCart});
+            window.localStorage.newCart = JSON.stringify(transformedCart);
         } )
         .catch( error => {
             console.log(error);
@@ -128,8 +156,7 @@ class CartPage extends Component {
         this.setState( { purchasable: sum > 0 } );
     }
 
-    addArticleHandler = ( article ) => {
-    
+    addArticleHandler = ( article ) => { 
         let cartArticles = this.state.cartArticles; 
         cartArticles.push(article); 
         const priceAddition = article.price.amount;
@@ -144,8 +171,7 @@ class CartPage extends Component {
         let cartArticles = this.state.cartArticles;
         if ( cartArticles.length <= 0 ) {
             return;
-        }
-      
+        }      
         for(var i=0;i<cartArticles.length;i++){
             if (cartArticles[i].name===article.name){
                 cartArticles.splice(i, 1);
@@ -161,6 +187,7 @@ class CartPage extends Component {
         const newPrice = oldPrice - priceDeduction;
         this.setState( { totalPrice: newPrice, cartArticles: cartArticles } );
         this.updatePurchaseState( updatedarticles );
+        this.updateCart();
     }
 
     purchaseHandler = () => {
@@ -172,20 +199,8 @@ class CartPage extends Component {
     }
 
     purchaseContinueHandler = () => {
-        console.log('To be continued...');
-        /*
-        const queryParams = [];
-        for (let i in this.state.cartArticles) {
-            const jsonData = JSON.stringify(this.state.cartArticles[i]);
-            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(jsonData));
-        }
-        queryParams.push('price=' + this.state.totalPrice);
-        const queryString = queryParams.join('&');
-        this.props.history.push({
-            pathname: '/checkout',
-            search: '?' + queryString
-        });*/
- 
+        console.log('To be continued...'); 
+        delete window.localStorage.newCart; 
     }
 
     render () {
@@ -211,7 +226,7 @@ class CartPage extends Component {
                     <h1>My Cart</h1>
                     <Cart articles={this.state.cartArticles} />
                     <BuildControls
-                        controls = {controls}
+                        controls = {this.state.cartArticles}
                         articleAdded={this.addArticleHandler}
                         articleRemoved={this.removeArticleHandler}
                         disabled={disabledInfo}
@@ -224,11 +239,9 @@ class CartPage extends Component {
                 articles={this.state.cartArticles}
                 price={this.state.totalPrice}
                 purchaseCancelled={this.purchaseCancelHandler}
-                purchaseContinued={this.purchaseContinueHandler} />;
-                
-            orderSummaryBar = <OrderSummaryBar
-            articles={this.state.cartArticles}
-            price={this.state.totalPrice} />;
+                purchaseContinued={this.purchaseContinueHandler} />;           
+            
+            orderSummaryBar = <OrderSummaryBar cart={this.state.transformedCart} />;
                 
         }
         if ( this.state.loading ) {

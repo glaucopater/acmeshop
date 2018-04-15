@@ -4,8 +4,7 @@ import Cart from '../../Cart/Cart';
 import Button from '../../UI/Button/Button';
 import classes from './CheckoutSummary.css';
 
-const checkoutSummary = (props) => {
-    console.log(props.cartArticles);
+const checkoutSummary = (props) => { 
     return (
         <div className={classes.CheckoutSummary}>
             <h1>Please check your order.</h1>

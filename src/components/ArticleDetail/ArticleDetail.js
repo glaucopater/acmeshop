@@ -9,12 +9,15 @@ function createMarkup(htmlCode) {
  
 const ArticleDetail = (props) => (
     <div className={classes.ArticleDetail} >
-        <h2>{props.name}</h2>
+        <h2>{props.details.name}</h2>
         <div>
-            <img className={classes.Image} src={props.image} alt={props.name}/>
+            <img className={classes.Image} src={props.details.image} alt={props.details.name}/>
         </div>   
-        <div className={classes.Price}>{props.priceAmount} {props.priceCurrency}</div>
-        <div dangerouslySetInnerHTML={createMarkup(props.description)} />          
+        <div className={classes.Price}>{props.details.priceAmount} {props.details.priceCurrency}</div>
+        <button className={classes.ArticleCardButton} 
+                onClick={() => props.articleAdded(props.details.sku)}
+                >Add to cart</button>
+        <div dangerouslySetInnerHTML={createMarkup(props.details.description)} />      
     </div>
 )
 
