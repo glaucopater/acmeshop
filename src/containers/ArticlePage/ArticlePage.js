@@ -3,13 +3,15 @@ import { Route } from 'react-router-dom';
 
 import Aux from '../../hoc/_Aux/_Aux';
 import axios from '../../axios-orders';
-import ArticleDetail from '../../components/ArticleDetail/ArticleDetail'
- 
+import ArticleDetail from '../../components/ArticleDetail/ArticleDetail' 
+import OrderSummaryBar from '../../components/Cart/OrderSummaryBar/OrderSummaryBar'; 
  
 class ArticlePage extends Component {
     state = { 
         loading: true,
-        details: null
+        details: null,
+        articles: [],
+        totalPrice:0
     }
   
     componentDidMount() {
@@ -28,9 +30,19 @@ class ArticlePage extends Component {
         if(!details){
             details = "";
         } 
+        
+        let orderSummaryBar = null;
+        let articles= [];
+        let items = [];
+        articles.push(items); 
+
+        orderSummaryBar = <OrderSummaryBar
+        articles={articles}
+        price={this.state.totalPrice}/>;
  
         return (
             <Aux>
+               {orderSummaryBar}
                <ArticleDetail 
                name={details.name} 
                description={details.description} 
@@ -40,7 +52,8 @@ class ArticlePage extends Component {
                 /> 
                <Route 
                     path={this.props.match.path + '/article'} 
-                    render={(props) => (<div>ArticleDetail</div>)} />         
+                    render={(props) => (<div>ArticleDetail</div>)}                     
+                    />         
             </Aux>
         );
     }

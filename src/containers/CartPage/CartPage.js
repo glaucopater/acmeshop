@@ -5,6 +5,8 @@ import Cart from '../../components/Cart/Cart';
 import BuildControls from '../../components/Cart/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Cart/OrderSummary/OrderSummary';
+import OrderSummaryBar from '../../components/Cart/OrderSummaryBar/OrderSummaryBar';
+
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import axios from '../../axios-orders';
@@ -19,6 +21,7 @@ class CartPage extends Component {
     state = {
         articles: null,
         cartArticles: [],
+        availableSkus: [],
         totalPrice: 0,
         purchasable: false,
         purchasing: false,
@@ -42,34 +45,71 @@ class CartPage extends Component {
         } );
     }
 
-    getArticleQuantityByName(name){
+    getArticleQuantityBySku(sku){
         let counter = 0;
         const cartArticles = this.state.cartArticles;
         for (let i=0;i<cartArticles.length;i++){ 
-            if (cartArticles[i].name===name){
+            if (cartArticles[i].sku===sku){
                 counter++;
             }
         }
         return counter;
     }
 
+    //adapt server cart response according to the existing articles sku
+    transformServerCart(newCart){
+        const availableSkus = this.state.availableSkus;
+        console.log("availableSkus", availableSkus);
+        for(const key in newCart.lines){
+            if (availableSkus.indexOf(newCart.lines[key].sku)!==-1){ 
+                console.log("sku is in " , newCart.lines[key]);
+            }
+            else 
+                console.log("extra line" , newCart.lines[key]);
+            
+        }
+        //update price amount
+        this.setState({totalPrice:newCart.total.amount});
+        
+    }
+
+    updateAvailableSkus(availableSkus){
+        this.setState({availableSkus:availableSkus});
+    }
+
     updateCart(){
         const cartArticles = this.state.cartArticles;
         let cart = {};
         let lines = [];
+  
+        let articlesSkus=[];
+
         for (let i=0;i<cartArticles.length;i++){
-            const qty = this.getArticleQuantityByName(cartArticles[i].name);
-            lines.push({"sku":cartArticles[i].sku,"quantity":qty});  
-        }
+            articlesSkus.push(cartArticles[i].sku);           
+        } 
+        console.log("articlesSkus ", articlesSkus);  
+
+        const uniqueSkus = [...new Set(cartArticles.map(item => item.sku))];
+        console.log("uniqueSkus ", uniqueSkus);
+        //this.updateAvailableSkus(uniqueSkus);
+        console.log("availableSkus ", uniqueSkus);
+
+        for (let i=0;i<uniqueSkus.length;i++){
+            const qty = this.getArticleQuantityBySku(uniqueSkus[i]);
+            lines.push({"sku":uniqueSkus[i],"quantity":qty});  
+        } 
+
         cart.lines = lines;
 
-        console.log(cart);
+        console.log("cart", cart);
+        this.updateAvailableSkus(uniqueSkus);
 
         axios.put( '/cart',cart )
         .then( response => {
             const newCart = response.data;
-            console.log(newCart);
-            this.setState( {   } );
+            console.log("newCart",newCart);
+           // this.setState( { totalPrice:newCart.total.amount  } );
+           this.transformServerCart(newCart);
         } )
         .catch( error => {
             console.log(error);
@@ -109,6 +149,7 @@ class CartPage extends Component {
         for(var i=0;i<cartArticles.length;i++){
             if (cartArticles[i].name===article.name){
                 cartArticles.splice(i, 1);
+                break;
             }
         }
         const updatedarticles = {
@@ -155,6 +196,8 @@ class CartPage extends Component {
             disabledInfo[key] = disabledInfo[key] <= 0
         }
         let orderSummary = null;
+        let orderSummaryBar = null;
+        
         let cart = this.state.error ? <p>articles can't be loaded!</p> : <Spinner />;
 
         if ( this.state.articles ) {
@@ -182,6 +225,11 @@ class CartPage extends Component {
                 price={this.state.totalPrice}
                 purchaseCancelled={this.purchaseCancelHandler}
                 purchaseContinued={this.purchaseContinueHandler} />;
+                
+            orderSummaryBar = <OrderSummaryBar
+            articles={this.state.cartArticles}
+            price={this.state.totalPrice} />;
+                
         }
         if ( this.state.loading ) {
             orderSummary = <Spinner />;
@@ -191,6 +239,7 @@ class CartPage extends Component {
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
                     {orderSummary}
                 </Modal>
+                {orderSummaryBar}
                 {cart}
             </Aux>
         );

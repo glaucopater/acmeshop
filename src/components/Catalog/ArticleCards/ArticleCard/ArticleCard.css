@@ -1,0 +1,51 @@
+.ArticleCard{
+    margin:1px;
+    padding:1px;
+    border: 1px solid #eee;
+    width: 300px;
+    height: 300px;
+    display: inline-block;
+}
+
+.ArticleCardLink{
+    text-decoration: none;
+}
+
+.ArticleCardImage
+{
+    width:300px;
+    height: 300px;
+    z-index: -1;
+}
+
+.ArticleCardInfo {
+    padding:10px; 
+    background-color: rgba(255,255,255,0.5);
+    border: 2px solid #4A4A4A;
+    display: inherit;
+    widows: 100%;
+}
+
+.ArticleCardPrice{
+    font-weight: bold;
+    float: right;   
+}
+.ArticleCardCurrency{
+
+    font-weight: bold;
+    float: right;
+}
+
+.ArticleCardButton{
+    background: #fff;
+    border: 1px solid #000;
+    margin-top:10px;
+    border-radius: 0.8;
+    width:100%;   
+    padding:10px;
+    text-align: center;
+}
+
+.ArticleCardButton::before{
+    content: "+ ";
+}

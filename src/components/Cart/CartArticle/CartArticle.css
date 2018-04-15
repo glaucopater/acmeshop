@@ -1,18 +1,3 @@
-.Ipad {
-    height: 13%;
-    width: 40%; 
-   
-    box-shadow: inset -15px 0 #c15711;
-    margin: 2% auto;
-}
-
-.Laptop {
-    height: 20%;
-    width: 40%;  
-    box-shadow: inset -15px 0 #c15711;
-    margin: 2% auto;
-    position: relative;
-}
 
 .CartArticle {
     display: block; 

@@ -5,7 +5,7 @@ import CartArticle from './CartArticle/CartArticle';
 
 const cart = ( props ) => { 
 
-    let  transformedArticles = [];
+    let transformedArticles = [];
     
     transformedArticles = Object.keys( props.articles )
         .map( igKey => { 
