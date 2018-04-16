@@ -1,19 +1,23 @@
-.OrderSummaryBar{
-    display: inline-table;
-    float: right;
-    
+.OrderSummaryBar{ 
+    float: right; 
+    margin-top:0;
+    background:#2B2B2B;
+    color: #fff; 
+    display: block;
+    border-radius: 0 0 5% 5%;
+}
+.OrderSummaryBar:hover{
+    display: block;
 }
 
 .TotalItems
-{
-    border: 1px solid #000;
-    display: inline-block;
+{ 
+    display: block;
     padding: 16px 20px;
 }
 
 .TotalPrice
-{
-    border: 1px solid #000;
-    display: inline-block;
+{ 
+    display: block;
     padding: 16px 20px;
 }
