@@ -10,7 +10,7 @@ import OrderSummaryBar from '../../components/Cart/OrderSummaryBar/OrderSummaryB
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import axios from '../../axios-orders';
-
+import classes from './CartPage.css';
  
 
 class CartPage extends Component {
@@ -235,7 +235,8 @@ class CartPage extends Component {
             
             cart = (
                 <Aux>
-                    <h1>My Cart</h1>
+                    <h1 className={classes.PageTitle}>Shopping Cart</h1>
+                    <div className={classes.CartPage}>
                     <Cart articles={this.state.cartArticles} />
                     <BuildControls
                         controls = {controls}
@@ -245,6 +246,7 @@ class CartPage extends Component {
                         purchasable={this.state.purchasable}
                         ordered={this.purchaseHandler}
                         price={this.state.totalPrice} />
+                    </div>
                 </Aux>
             );
             orderSummary = <OrderSummary

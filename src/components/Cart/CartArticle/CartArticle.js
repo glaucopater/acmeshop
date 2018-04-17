@@ -10,8 +10,10 @@ class CartArticle extends Component {
 
         article = 
         <div className={classes.CartArticle}>
-            <a className={classes.ArticleLink} href={"/article/"+this.props.sku}>{this.props.name}</a>
-            {this.props.priceAmount}  {this.props.priceCurrency}
+            <div className={classes.ArticleLink}>                
+                <a href={"/article/"+this.props.sku}>{this.props.name}</a> 
+            </div> 
+            <div className={classes.Price}>{this.props.priceAmount}  {this.props.priceCurrency}</div>
             <img className={classes.Image} 
             src={this.props.image} 
             alt={this.props.name}

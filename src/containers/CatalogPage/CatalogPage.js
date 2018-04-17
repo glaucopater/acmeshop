@@ -7,6 +7,7 @@ import OrderSummaryBar from '../../components/Cart/OrderSummaryBar/OrderSummaryB
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import axios from '../../axios-orders';
+import classes from './CatalogPage.css';
  
 
 class CatalogPage extends Component {
@@ -184,7 +185,7 @@ class CatalogPage extends Component {
             }
             catalog = (
                 <Aux> 
-                    <h1 onClick={this.headerClickHandler}>Products</h1>
+                    <h1 className={classes.PageTitle} onClick={this.headerClickHandler}>Products</h1>
                     <Catalog
                         articles = {this.state.articles}
                         articleAdded={this.addArticleHandler}

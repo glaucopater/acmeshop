@@ -5,6 +5,7 @@
     color: #fff; 
     display: block;
     border-radius: 0 0 5% 5%;
+    width: 200px;
 }
 .OrderSummaryBar:hover{
     display: block;
@@ -18,6 +19,19 @@
 
 .TotalPrice
 { 
+    border-top: 1px solid #fff;
     display: block;
     padding: 16px 20px;
+}
+
+strong{
+    float:right;
+}
+
+@media (max-width:500px)
+{
+    .OrderSummaryBar{
+        width: 100%;
+    }
+    
 }

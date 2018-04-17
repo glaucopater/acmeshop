@@ -1,42 +1,41 @@
 
 .CartArticle {
-    display: block; 
-    padding: 10px 20px;
+    display: block;
+    padding: 0;
     font-weight: bold;
-    margin:5px;
-    border:1px solid #ccc;
-    height: 100px;
-    box-shadow:   0 8px 6px -6px black;
+    margin: 20px;
+    border: 1px solid #ccc;
+    height: 102px;
+    /* -webkit-box-shadow: 0 8px 6px -6px black; */
+    /* box-shadow: 0 8px 6px -6px black; */
+    width: 80%;
+    overflow: auto;
 }
 
 .Image{
     width:100px;
     height: 100px;
     vertical-align:middle;
+    float: left;
+}
+
+ 
+.ArticleLink {
+    text-decoration: none;
+    color: #4A4A4A; 
+    margin: 20px 0 0 20px;
+    display: inline;
+}
+
+.ArticleLink:hover{
+  text-decoration: none;
+  color: #4A4A4A;
+}
+ 
+.Price{
     float: right;
+    margin: 20px 20px;
 }
-
-.ArticleLink { 
-    text-decoration: none; 
-    display: inline-block;
-    font: inherit;
-    padding: 5px;
-    margin: 0 5px;
-    width: 180px;
-    border: 1px solid #AA6817;
-    cursor: pointer;
-    outline: none;
-    background-color: rgb(48, 87, 170);
-    color: white;
-} 
- 
- 
-.ArticleLink:hover,.ArticleLink:active {
-    background-color: #99703F;
-    color: white;
-}
-
-
 
 @media (max-width: 500px) {
     .Image{

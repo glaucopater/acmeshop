@@ -6,7 +6,7 @@ import BuildControl from './BuildControl/BuildControl';
 
 const buildControls = (props) => (
     <div className={classes.BuildControls}>
-        <p>Current Price: <strong>{props.price.toFixed(2)}</strong></p>
+        <p className={classes.CurrentPrice}>Current Price: <strong>{props.price.toFixed(2)}</strong></p>
         {props.controls.map(ctrl => (
             <BuildControl 
                 key={ctrl.name} 
@@ -18,7 +18,7 @@ const buildControls = (props) => (
         <button 
             className={classes.OrderButton}
             disabled={!props.purchasable}
-            onClick={props.ordered}>ORDER NOW</button>
+            onClick={props.ordered}>PROCEED TO CHECKOUT</button>
     </div>
 );
 

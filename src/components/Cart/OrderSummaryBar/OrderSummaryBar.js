@@ -25,8 +25,8 @@ class OrderSummaryBar extends Component {
         } 
         return (
             <div className={classes.OrderSummaryBar}>                
-                <div  className={classes.TotalItems}>Total items: {totalItems}</div>
-                <div  className={classes.TotalPrice}><strong>Total Price: {totalPrice}</strong></div>  
+                <div  className={classes.TotalItems}>Total items: <strong>{totalItems}</strong></div>
+                <div  className={classes.TotalPrice}>Total: <strong> {totalPrice}</strong></div>  
             </div>
         );
     }
