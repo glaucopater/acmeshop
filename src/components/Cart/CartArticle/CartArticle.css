@@ -5,9 +5,7 @@
     font-weight: bold;
     margin: 20px;
     border: 1px solid #ccc;
-    height: 102px;
-    /* -webkit-box-shadow: 0 8px 6px -6px black; */
-    /* box-shadow: 0 8px 6px -6px black; */
+    height: 102px; 
     width: 80%;
     overflow: auto;
 }
@@ -17,18 +15,19 @@
     height: 100px;
     vertical-align:middle;
     float: left;
-}
-
+} 
  
-.ArticleLink {
-    text-decoration: none;
-    color: #4A4A4A; 
+.ArticleLink { 
     margin: 20px 0 0 20px;
     display: inline;
 }
+.ArticleLink a {
+    text-decoration: none; 
+    color: #4A4A4A; 
+}
 
 .ArticleLink:hover{
-  text-decoration: none;
+  text-decoration: underline;
   color: #4A4A4A;
 }
  

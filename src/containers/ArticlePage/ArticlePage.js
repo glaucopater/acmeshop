@@ -175,9 +175,7 @@ class ArticlePage extends Component {
         if(!details){
             details = "";
         }  
-        
-        console.log("transformedCart 2", this.state.transformedCart);
-        
+    
         let orderSummaryBar = null;
         orderSummaryBar = <OrderSummaryBar cart={this.state.transformedCart} />;
  

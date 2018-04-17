@@ -6,17 +6,21 @@
 }
 
 .NavigationItem a {
-    color: #8F5C2C;
+    color: #FFF;
     text-decoration: none;
     width: 100%;
     box-sizing: border-box;
     display: block;
 }
 
-.NavigationItem a:hover,
+
+.NavigationItem a:hover{
+    text-decoration: underline;
+}
+
 .NavigationItem a:active,
-.NavigationItem a.active {
-    color: #40A4C8;
+.NavigationItem a.active { 
+    font-weight: bold;
 }
 
 @media (min-width: 500px) {

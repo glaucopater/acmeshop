@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-// test  
-// baseURL: 'https://react-my-burger-1ed07.firebaseio.com/'
+// test   
     baseURL: 'http://challenge.monoqi.net/'
 
 });

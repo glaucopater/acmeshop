@@ -14,9 +14,8 @@ const ArticleDetail = (props) => (
             <img className={classes.Image} src={props.details.image} alt={props.details.name}/>
         </div>   
         <div className={classes.Price}>{props.details.priceAmount} {props.details.priceCurrency}</div>
-        <button className={classes.ArticleCardButton} 
-                onClick={() => props.articleAdded(props.details.sku)}
-                >Add to cart</button>
+    
+        <div className={classes.Button}  onClick={() => props.articleAdded(props.details.sku)}><span>+</span> ADD TO CART</div>
         <div dangerouslySetInnerHTML={createMarkup(props.details.description)} />      
     </div>
 )

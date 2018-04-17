@@ -14,4 +14,14 @@
     height: 200px;
 }
 
+.Button {
+    display:block;
+    width:262px;
+    border:1px solid rgba(138, 135, 135, 0.418);
+    margin:5px 0 ;
+    background: #fff;
+    border-radius: 20px;
+    text-align:center;  
+    cursor: pointer;
+  }
  
