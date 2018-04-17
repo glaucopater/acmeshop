@@ -217,7 +217,7 @@ class CartPage extends Component {
 
         if ( this.state.articles ) {
              
-            let currentArticles = this.state.articles;           
+//            let currentArticles = this.state.articles;           
             const controls = [...new Set(this.state.cartArticles)];  
           
             /*
