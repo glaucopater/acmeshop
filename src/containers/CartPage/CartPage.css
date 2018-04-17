@@ -8,3 +8,10 @@
     padding: 40px;
     margin: 10px;
 }
+
+@media (max-width: 500px) {
+    .CartPage{
+        padding: 10px; 
+        margin: 0;
+    }
+}

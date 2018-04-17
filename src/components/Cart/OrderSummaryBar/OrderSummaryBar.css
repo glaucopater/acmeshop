@@ -32,6 +32,13 @@ strong{
 {
     .OrderSummaryBar{
         width: 100%;
+        border-radius:0;  
+    }
+
+    .TotalPrice
+    { 
+        border-top: none; 
+        padding: 10px 20px;
     }
     
 }
