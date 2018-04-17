@@ -34,7 +34,8 @@
     background: rgba(255, 255, 255, 0.7)
   }
   .ArticleCard > footer > h1, 
-  .ArticleCard > footer > div { 
+  .ArticleCard > footer > div,
+  .ArticleCard > footer > button { 
     color: white;
     position: relative;
     z-index: 1;
@@ -75,6 +76,13 @@
   }
   .Button > span {
     float:left; 
+  }
+  .Button:focus{
+    outline:none;
+  }
+
+  .Button:hover{
+     border:1px solid #ccc; 
   }
   
   * {

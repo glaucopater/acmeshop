@@ -154,8 +154,7 @@ class CatalogPage extends Component {
         } );
     }
 
-    addArticleHandler = ( article ) => {
-        console.log(article);
+    addArticleHandler = ( article ) => { 
         let cartArticles = this.state.cartArticles; 
         cartArticles.push(article); 
         const priceAddition = article.price.amount;

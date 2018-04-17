@@ -16,7 +16,7 @@ const articleCard = (props) => {
                     <a className={classes.Link} href={"/article/"+props.sku}>{props.name}</a> 
                 </div>  
                 <div className={classes.Price}>{props.priceAmount}  {props.priceCurrency}</div>
-                <div className={classes.Button}  onClick={props.added}><span>+</span> ADD TO CART</div>
+                <button className={classes.Button}  onClick={props.added}><span>+</span> ADD TO CART</button>
          </footer>   
     </div>
     )

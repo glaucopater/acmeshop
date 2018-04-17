@@ -24,5 +24,14 @@
     text-align:center;  
     cursor: pointer;
     font-size: 12px;
+    height: 27px; 
+    line-height: 27px;
   }
  
+  .Button:focus{
+    outline:none;
+  }
+
+  .Button:hover{
+     border:1px solid #888; 
+  }

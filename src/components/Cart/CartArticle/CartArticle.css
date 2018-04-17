@@ -8,6 +8,7 @@
     height: 102px; 
     width: 80%;
     overflow: auto;
+    padding:20px;
 }
 
 .Image{
@@ -15,6 +16,7 @@
     height: 100px;
     vertical-align:middle;
     float: left;
+    margin: -20px 20px -20px -20px;
 } 
  
 .ArticleLink { 
@@ -32,8 +34,7 @@
 }
  
 .Price{
-    float: right;
-    margin: 20px 20px;
+    float: right; 
 }
 
 @media (max-width: 500px) {
