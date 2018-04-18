@@ -13,7 +13,7 @@ class CartArticle extends Component {
             <div className={classes.ArticleLink}>                
                 <a href={"/article/"+this.props.sku}>{this.props.name}</a> 
             </div> 
-            <div className={classes.Price}>{this.props.priceAmount}  {this.props.priceCurrency}</div>
+            <div className={classes.Price}>{this.props.quantity} x {this.props.priceAmount}  {this.props.priceCurrency}</div>
             <img className={classes.Image} 
             src={this.props.image} 
             alt={this.props.name}

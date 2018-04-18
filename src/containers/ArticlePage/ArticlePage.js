@@ -34,6 +34,7 @@ class ArticlePage extends Component {
                 if (newCart){
                     console.log(newCart);               
                     this.setState({transformedCart:newCart});
+                    this.updatePurchaseState( this.state.cartArticles );
                 }            
             } 
         this.getArticles();

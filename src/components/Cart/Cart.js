@@ -17,6 +17,7 @@ const cart = ( props ) => {
                 image={props.articles[igKey].image}
                 priceAmount={props.articles[igKey].price.amount}
                 priceCurrency={props.articles[igKey].price.currency}
+                quantity={0}
                  />;
             } );
         } )

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
 import Aux from '../../hoc/_Aux/_Aux';
-import Cart from '../../components/Cart/Cart';
+
+
 import BuildControls from '../../components/Cart/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Cart/OrderSummary/OrderSummary';
@@ -11,6 +12,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import axios from '../../axios-orders';
 import classes from './CartPage.css';
+
  
 
 class CartPage extends Component {
@@ -34,11 +36,15 @@ class CartPage extends Component {
 
         if (typeof window.localStorage.newCart === "string"){ 
             const newCart = JSON.parse(window.localStorage.newCart);
+            console.log("componentDidMount",  newCart);
             if (newCart){           
-                this.setState({transformedCart:newCart});
+                this.setState({transformedCart:newCart
+                    , totalPrice:newCart.total.amount
+                });
             }            
         } 
       this.getArticles();
+      
     }
 
     restoreCartArticles(){ 
@@ -59,6 +65,7 @@ class CartPage extends Component {
             if (skuIndex!==-1)
             { 
                 for(let j=0;j<cartLines[skuIndex].quantity;j++){ 
+                    currentArticle.quantity = cartLines[skuIndex].quantity;                    
                     updateCartArticles.push(currentArticle);
                 }
             } 
@@ -137,6 +144,12 @@ class CartPage extends Component {
             console.log("newCart ", newCart);
             let transformedCart = this.transformServerCart(newCart);
             this.setState({transformedCart:transformedCart});
+
+
+            //TEST
+            //this.restoreCartArticles();            
+            //this.setState({cartArticles:[...new Set(this.state.cartArticles)]});
+
             window.localStorage.newCart = JSON.stringify(transformedCart);
         } )
         .catch( error => {
@@ -146,6 +159,7 @@ class CartPage extends Component {
     }
 
     updatePurchaseState ( articles ) { 
+        console.log(articles);
         const sum = Object.keys( articles )
             .map( igKey => {
                 return articles[igKey].price.amount;
@@ -153,7 +167,10 @@ class CartPage extends Component {
             .reduce( ( sum, el ) => {
                 return sum + el;
             }, 0 );
+
         this.setState( { purchasable: sum > 0 } );
+
+        console.log("purchasable ",sum, " ",  this.state.purchasable);
     }
 
     addArticleHandler = ( article ) => { 
@@ -215,10 +232,11 @@ class CartPage extends Component {
         
         let cart = this.state.error ? <p>articles can't be loaded!</p> : <Spinner />;
 
-        if ( this.state.articles ) {
+        if ( this.state.cartArticles ) {
              
-//            let currentArticles = this.state.articles;           
-            const controls = [...new Set(this.state.cartArticles)];  
+            //unique articles 
+            //after loading component
+            let controls = [...new Set(this.state.cartArticles)];  
           
             /*
             var ca = this.state.cartArticles;
@@ -231,13 +249,35 @@ class CartPage extends Component {
                 }
                 return allNames;
             }, {});
-            console.log(countedNames);*/
+            console.log(countedNames);
+
+            console.log("unique sku");
+            for(let i=0;i<controls.length;i++)
+            {
+                console.log(controls[i]);
+            }
+ 
             
+            let tempCartArticles = this.state.cartArticles;
+            for(let i=0;i<tempCartArticles.length;i++)
+            {
+                //look for new qty 
+                
+                for(let index in this.state.transformedCart.lines){
+                    if (this.state.transformedCart.lines[index].sku===tempCartArticles[i].sku){
+                        tempCartArticles[i].quantity = this.state.cartArticles[i].quantity;
+                    }
+                } 
+                
+            }*/
+
+            console.log("controls", controls);
+            
+ 
             cart = (
                 <Aux>
                     <h1 className={classes.PageTitle}>Shopping Cart</h1>
-                    <div className={classes.CartPage}>
-                    <Cart articles={this.state.cartArticles} />
+                    <div className={classes.CartPage}>                    
                     <BuildControls
                         controls = {controls}
                         articleAdded={this.addArticleHandler}
@@ -245,7 +285,10 @@ class CartPage extends Component {
                         disabled={disabledInfo}
                         purchasable={this.state.purchasable}
                         ordered={this.purchaseHandler}
-                        price={this.state.totalPrice} />
+                        totalPrice={this.state.totalPrice} />
+                    </div>
+                    <div>
+
                     </div>
                 </Aux>
             );

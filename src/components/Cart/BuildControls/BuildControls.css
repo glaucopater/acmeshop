@@ -1,9 +1,7 @@
 .BuildControls {
-    border: 1px solid #ccc;
-    margin-left: 55%;
+    border: 1px solid #ccc; 
     margin-top: 20px;
-    overflow: auto;
-    height: 250px;
+    overflow: auto;    
     padding: 10px 20px; 
 }
 
@@ -15,8 +13,7 @@
     height: 27px; 
     line-height: 27px;
     background: #fff;
-    border-radius: 20px;
-    text-align: center;
+    border-radius: 20px; 
     margin: 0 auto;
     cursor: pointer;
 }
@@ -36,6 +33,12 @@
     border: 1px solid #ccc; 
 }
 
+.CurrentInfo{
+    border:1px solid #ccc;
+    width:300px;
+    top:0; 
+}
+
 .CurrentPrice{
     margin: 10px;
 }
@@ -52,9 +55,7 @@
     }
 }
 
-
-
-
+ 
 
 @media (max-width: 500px) {
     .BuildControls{
