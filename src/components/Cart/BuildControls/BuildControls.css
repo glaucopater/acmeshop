@@ -1,8 +1,19 @@
-.BuildControls {
-    border: 1px solid #ccc; 
-    margin-top: 20px;
-    overflow: auto;    
-    padding: 10px 20px; 
+.LeftColumn{
+    border: 1px solid transparent;    
+    display: inline-flex;
+}
+
+.RigthColumn{
+    border: 1px solid transparent;  
+    float: right;  
+}
+
+
+
+.BuildControls { 
+    padding: 0px 20px 0 0; 
+    display: inline-block; 
+    width: 65%;
 }
 
 .OrderButton {
@@ -34,13 +45,15 @@
 }
 
 .CurrentInfo{
-    border:1px solid #ccc;
-    width:300px;
-    top:0; 
+    border:1px solid #ccc;  
+    float:right;  
+    margin: 5px 5px 0 0;
+    height:  220px;
+    width: 300px;
 }
 
 .CurrentPrice{
-    margin: 10px;
+    margin: 20px;
 }
 
 @keyframes enable {
@@ -58,7 +71,25 @@
  
 
 @media (max-width: 500px) {
+
+    .LeftColumn{ 
+        display: block;
+    }
+    
+    .RigthColumn{
+        display: block;
+    }
+ 
+    
     .BuildControls{
+        border: 1px solid #ccc;
+        overflow: auto;
+        padding: 10px;
+        margin: 20px;
+        width: 100%;
+    }
+
+    .CurrentInfo{
         border: 1px solid #ccc;
         overflow: auto;
         padding: 10px;

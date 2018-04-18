@@ -1,9 +1,24 @@
 .BuildControl {
-    display: flex;    
+    display: block;    
     align-items: center;
-    margin: 5px 0;
+    margin: 5px 10px;
     border:1px solid #ccc; 
-    width: 65%;
+    width: 100%;
+    height: 100px; 
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.BuildControl .Buttons
+{ 
+    padding:  4px;
+    float: right;
+}
+
+.BuildControl .SubTotals
+{ 
+    float: right;
+    padding: 10px;
 }
 
 .BuildControl button { 
