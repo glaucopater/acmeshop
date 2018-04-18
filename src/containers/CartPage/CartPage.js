@@ -1,47 +1,43 @@
-import React, { Component } from 'react';
-
+import React from 'react';  
+import Page from '../Page/Page'
 import Aux from '../../hoc/_Aux/_Aux';
-
-
 import BuildControls from '../../components/Cart/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Cart/OrderSummary/OrderSummary';
 import OrderSummaryBar from '../../components/Cart/OrderSummaryBar/OrderSummaryBar';
-
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import axios from '../../axios-orders';
+import axios from '../../axios-config';
 import classes from './CartPage.css';
 
  
 
-class CartPage extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {...}
-    // }
-    state = {
+class CartPage extends Page {
+    constructor(props) {
+        super(props);
+        this.state = { 
         articles: null,
-        cartArticles: [],
-        transformedCart: null,
-        availableSkus: [],
-        totalPrice: 0,
-        purchasable: false,
-        purchasing: false,
-        loading: false,
-        error: false
+           cartArticles: [],
+           transformedCart: null,
+           totalPrice: 0,
+           purchasable: false,
+           purchasing: false,
+           loading: false,
+           error: false,
+           availableSkus: []
+        }
     }
+ 
 
     componentDidMount () {  
-
         if (typeof window.localStorage.newCart === "string"){ 
             const newCart = JSON.parse(window.localStorage.newCart);
-            console.log("componentDidMount",  newCart);
             if (newCart){           
                 this.setState({transformedCart:newCart
-                    , totalPrice:newCart.total.amount
+                    ,totalPrice:newCart.total.amount
                 });
-            }            
+            }   
+            this.updatePurchaseState( newCart.lines );          
         } 
       this.getArticles();
       
@@ -50,7 +46,6 @@ class CartPage extends Component {
     restoreCartArticles(){ 
         let cartSkus = [];
         let cartLines = []; 
-
         let updateCartArticles = this.state.cartArticles;
         for(let i=0;i<this.state.transformedCart.lines.length;i++){
             cartLines.push({sku:this.state.transformedCart.lines[i].sku,
@@ -75,52 +70,7 @@ class CartPage extends Component {
         this.setState({cartArticles:updateCartArticles});
     }
 
-    getArticles(){
-        axios.get( '/catalog' )
-        .then( response => {
-            const articles = response.data.articles;
-            this.setState( { articles: articles } ); 
-            this.restoreCartArticles();
-
-        } )
-        .catch( error => {
-            console.log(error);
-            this.setState( { error: true } );
-        } );
-    }
-
-    getArticleQuantityBySku(sku){
-        let counter = 0;
-        const cartArticles = this.state.cartArticles;
-        for (let i=0;i<cartArticles.length;i++){ 
-            if (cartArticles[i].sku===sku){
-                counter++;
-            }
-        }
-        return counter;
-    }
-
-    //adapt server cart response according to the existing articles sku
-    transformServerCart(newCart){
-        const availableSkus = this.state.availableSkus;
-        let transformedCart = {};
-        let lines = []; 
-        for(const key in newCart.lines){
-            if (availableSkus.indexOf(newCart.lines[key].sku)!==-1){  
-                lines.push(newCart.lines[key]);
-            }             
-        }
-        transformedCart.lines = lines;
-        transformedCart.total = newCart.total;
-        //update price amount
-        this.setState({totalPrice:newCart.total.amount});  
-        return transformedCart;
-    }
-
-    updateAvailableSkus(availableSkus){
-        this.setState({availableSkus:availableSkus});
-    }
-
+  
     updateCart(){
         const cartArticles = this.state.cartArticles;
         let cart = {};
@@ -140,16 +90,10 @@ class CartPage extends Component {
         this.updateAvailableSkus(uniqueSkus);
         axios.put( '/cart',cart )
         .then( response => {
-            const newCart = response.data; 
-            console.log("newCart ", newCart);
+            const newCart = response.data;  
             let transformedCart = this.transformServerCart(newCart);
             this.setState({transformedCart:transformedCart});
-
-
-            //TEST
-            //this.restoreCartArticles();            
-            //this.setState({cartArticles:[...new Set(this.state.cartArticles)]});
-
+ 
             window.localStorage.newCart = JSON.stringify(transformedCart);
         } )
         .catch( error => {
@@ -158,20 +102,7 @@ class CartPage extends Component {
         } );
     }
 
-    updatePurchaseState ( articles ) { 
-        console.log(articles);
-        const sum = Object.keys( articles )
-            .map( igKey => {
-                return articles[igKey].price.amount;
-            } )
-            .reduce( ( sum, el ) => {
-                return sum + el;
-            }, 0 );
-
-        this.setState( { purchasable: sum > 0 } );
-
-        console.log("purchasable ",sum, " ",  this.state.purchasable);
-    }
+ 
 
     addArticleHandler = ( article ) => { 
         let cartArticles = this.state.cartArticles; 
@@ -218,6 +149,7 @@ class CartPage extends Component {
     purchaseContinueHandler = () => {
         console.log('To be continued...'); 
         delete window.localStorage.newCart; 
+        this.props.history.replace( '/catalog' );
     }
 
     render () {
@@ -231,48 +163,18 @@ class CartPage extends Component {
         let orderSummaryBar = null;
         
         let cart = this.state.error ? <p>articles can't be loaded!</p> : <Spinner />;
-
+ 
         if ( this.state.cartArticles ) {
              
             //unique articles 
             //after loading component
             let controls = [...new Set(this.state.cartArticles)];  
-          
-            /*
-            var ca = this.state.cartArticles;
-            var countedNames = ca.reduce(function (allNames.sku, sku) { 
-                if (sku in allNames) {
-                allNames[sku]++;
-                }
-                else {
-                allNames[sku] = 1;
-                }
-                return allNames;
-            }, {});
-            console.log(countedNames);
 
-            console.log("unique sku");
-            for(let i=0;i<controls.length;i++)
-            {
-                console.log(controls[i]);
+            for(let i=0;i<controls.length;i++){
+                controls[i].quantity = this.getArticleQuantityBySku(controls[i].sku);
             }
- 
-            
-            let tempCartArticles = this.state.cartArticles;
-            for(let i=0;i<tempCartArticles.length;i++)
-            {
-                //look for new qty 
-                
-                for(let index in this.state.transformedCart.lines){
-                    if (this.state.transformedCart.lines[index].sku===tempCartArticles[i].sku){
-                        tempCartArticles[i].quantity = this.state.cartArticles[i].quantity;
-                    }
-                } 
-                
-            }*/
 
-            console.log("controls", controls);
-            
+            //controls = this.state.transformedCart.lines;
  
             cart = (
                 <Aux>
@@ -280,16 +182,14 @@ class CartPage extends Component {
                     <div className={classes.CartPage}>                    
                     <BuildControls
                         controls = {controls}
+                        temp = {this.state.cartArticles}
                         articleAdded={this.addArticleHandler}
                         articleRemoved={this.removeArticleHandler}
                         disabled={disabledInfo}
                         purchasable={this.state.purchasable}
                         ordered={this.purchaseHandler}
                         totalPrice={this.state.totalPrice} />
-                    </div>
-                    <div>
-
-                    </div>
+                    </div> 
                 </Aux>
             );
             orderSummary = <OrderSummary

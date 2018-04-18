@@ -3,15 +3,18 @@
     padding: 30px 90px 0;
 }
 
-.CartPage {
-    width: 95%; 
+.CartPage { 
     padding: 40px;
-    margin: 10px;
+    margin: 10px; 
 }
 
 @media (max-width: 500px) {
     .CartPage{
         padding: 10px; 
         margin: 0;
+    }
+
+    .PageTitle {
+        text-align: center; 
     }
 }

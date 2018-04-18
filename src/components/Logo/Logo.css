@@ -10,7 +10,7 @@
 }
 
 @media (max-width: 500px) {
-    .Logo{
-       display: none; 
+    .Logo img {
+        height: 100%;
     }
 }

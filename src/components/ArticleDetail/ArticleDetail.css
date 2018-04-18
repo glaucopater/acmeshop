@@ -4,9 +4,21 @@
     margin: 20px 20px;
 }
 
+h1{
+    padding: 5px 60px
+}
 
-.NameDetail {
+.ArticleDetail div {
+    padding: 5px 26px; 
+    margin: 10px;
+}
+
+.NameDetail { 
     display: inline;
+}
+
+.ImageContainer{
+    padding:1px;
 }
 
 .Image{
@@ -26,6 +38,7 @@
     font-size: 12px;
     height: 27px; 
     line-height: 27px;
+    margin: 10px;
   }
  
   .Button:focus{

@@ -1,19 +1,20 @@
+.SuperCartContainer{
+    display: flex;
+} 
+
 .LeftColumn{
-    border: 1px solid transparent;    
-    display: inline-flex;
+    border: 1px solid transparent;
+    flex: 1;   
 }
 
 .RigthColumn{
     border: 1px solid transparent;  
-    float: right;  
-}
+    width: 300px;
+} 
 
-
-
-.BuildControls { 
-    padding: 0px 20px 0 0; 
-    display: inline-block; 
-    width: 65%;
+.EmptyCart{
+    padding: 0px 40px 0;
+    font-weight: bold;
 }
 
 .OrderButton {
@@ -31,21 +32,21 @@
 
 .OrderButton:hover, .OrderButton:active {
     background-color: #C7C6C6;
-    border: 1px solid #ccc; 
+    border: 1px solid #ededed; 
 }
 
 .OrderButton:disabled { 
     cursor: not-allowed;
-    border: 1px solid #ccc; 
+    border: 1px solid #ededed; 
 }
 
 .OrderButton:not(:disabled) {
     animation: enable 0.3s linear;
-    border: 1px solid #ccc; 
+    border: 1px solid #ededed; 
 }
 
 .CurrentInfo{
-    border:1px solid #ccc;  
+    border:1px solid #ededed;  
     float:right;  
     margin: 5px 5px 0 0;
     height:  220px;
@@ -71,6 +72,9 @@
  
 
 @media (max-width: 500px) {
+    .SuperCartContainer{
+        display: block;
+    }  
 
     .LeftColumn{ 
         display: block;
@@ -78,22 +82,24 @@
     
     .RigthColumn{
         display: block;
-    }
- 
-    
+        width: 100%;
+    } 
+  
+
     .BuildControls{
-        border: 1px solid #ccc;
-        overflow: auto;
-        padding: 10px;
-        margin: 20px;
+      
+        padding: 0;
+        margin: 0;
         width: 100%;
     }
 
     .CurrentInfo{
-        border: 1px solid #ccc;
+        border: 1px solid transparent;
         overflow: auto;
         padding: 10px;
-        margin: 20px;
+        margin: 0;
         width: 100%;
     }
 }
+
+  

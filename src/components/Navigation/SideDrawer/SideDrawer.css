@@ -33,6 +33,6 @@
 
 @media (max-width: 500px) {
     .Logo{
-       display: none;
+       display: block;
     }
 }

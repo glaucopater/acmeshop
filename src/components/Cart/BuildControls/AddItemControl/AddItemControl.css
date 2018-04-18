@@ -20,13 +20,13 @@
 .AddItemControl button:disabled {
     background-color: rgb(185, 186, 187);
     border: 1px solid #7E7365;
-    color: #ccc;
+    color: #ededed;
     cursor: default;
 }
 
 .AddItemControl button:hover:disabled {
     background-color: #AC9980;
-    color: #ccc;
+    color: #ededed;
     cursor: not-allowed;
 }
 
@@ -47,11 +47,13 @@
 }
 
 .AddItemControl .Less:hover, .AddItemControl .Less:active {  
-    background-color: #DAA972;
+    
     color: white;
+    border: #000;
 }
 
 .AddItemControl .More:hover,.AddItemControl .More:active {
     background-color: #99703F;
     color: white;
+    border: #000;
 }

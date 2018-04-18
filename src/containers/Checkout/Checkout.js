@@ -21,8 +21,7 @@ class Checkout extends Component {
             else {   cartArticles[param[0]] = param[1];            }
             
         }
-        this.setState( { cartArticles: cartArticles, totalPrice: price } );
-        console.log("componentWillMount");
+        this.setState( { cartArticles: cartArticles, totalPrice: price } ); 
     }
 
     checkoutCancelledHandler = () => {

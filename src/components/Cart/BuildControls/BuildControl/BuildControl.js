@@ -5,10 +5,11 @@ import classes from './BuildControl.css';
 const buildControl = (props) => (    
     <div className={classes.BuildControl}>
         <img className={classes.Image} src={props.image} alt={props.name}/>
-        <div className={classes.Label}>{props.name}</div> 
-        
+        <div className={classes.Label}> 
+            <a className={classes.Link} href={"/article/"+props.sku}>{props.name}</a> 
+        </div>          
         <div className={classes.SubTotals} >
-            {props.quantity} x {props.price.amount} 
+            {props.quantity} x {props.price.amount} {props.price.currency} 
         </div> 
         <div className={classes.Buttons} > 
             <button 

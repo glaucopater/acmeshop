@@ -9,8 +9,8 @@ function createMarkup(htmlCode) {
  
 const ArticleDetail = (props) => (
     <div className={classes.ArticleDetail} >
-        <h2>{props.details.name}</h2>
-        <div>
+        <h1>{props.details.name}</h1>
+        <div className={classes.ImageContainer}>
             <img className={classes.Image} src={props.details.image} alt={props.details.name}/>
         </div>   
         <div className={classes.Price}>{props.details.priceAmount} {props.details.priceCurrency}</div>

@@ -1,30 +1,30 @@
-import React, { Component } from 'react'; 
+import React from 'react'; 
+import Page from '../Page/Page'
 import Aux from '../../hoc/_Aux/_Aux';  
-import Catalog from '../../components/Catalog/Catalog'; 
-  
+import Catalog from '../../components/Catalog/Catalog';   
 import OrderSummaryBar from '../../components/Cart/OrderSummaryBar/OrderSummaryBar'; 
-
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import axios from '../../axios-orders';
+import axios from '../../axios-config';
 import classes from './CatalogPage.css';
  
 
-class CatalogPage extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {...}
-    // }
-    state = {
+class CatalogPage extends Page {
+    constructor(props) {
+        super(props);
+        this.state = { 
         articles: null,
-        cartArticles: [],
-        transformedCart: null,
-        totalPrice: 0,
-        purchasable: false,
-        purchasing: false,
-        loading: false,
-        error: false
+           cartArticles: [],
+           transformedCart: null,
+           totalPrice: 0,
+           purchasable: false,
+           purchasing: false,
+           loading: false,
+           error: false,
+           availableSkus: []
+        }
     }
+ 
 
     componentDidMount () {  
         if (typeof window.localStorage.newCart === "string"){ 
@@ -60,64 +60,7 @@ class CatalogPage extends Component {
         }
         this.setState({cartArticles:updateCartArticles});
     }
-
-    getArticles(){ 
-        axios.get( '/catalog' )
-        .then( response => {
-            const articles = response.data.articles;
-            this.setState( { articles: articles } ); 
-            this.restoreCartArticles();
-        } )
-        .catch( error => {
-            console.log(error);
-            this.setState( { error: true } );
-        } );
-    }
-
-    updatePurchaseState ( articles ) { 
-        const sum = Object.keys( articles )
-            .map( igKey => {
-                return articles[igKey].price.amount;
-            } )
-            .reduce( ( sum, el ) => {
-                return sum + el;
-            }, 0 );
-        this.setState( { purchasable: sum > 0 } );
-    }
-
-    getArticleQuantityBySku(sku){
-        let counter = 0;
-        const cartArticles = this.state.cartArticles;
-        for (let i=0;i<cartArticles.length;i++){ 
-            if (cartArticles[i].sku===sku){
-                counter++;
-            }
-        }
-        return counter;
-    }
-
-    //adapt server cart ajax response according to the existing articles sku
-    transformServerCart(newCart){
-        const availableSkus = this.state.availableSkus;
-        let transformedCart = {};
-        let lines = []; 
-        for(const key in newCart.lines){
-            if (availableSkus.indexOf(newCart.lines[key].sku)!==-1){  
-                lines.push(newCart.lines[key]);
-            } 
-            
-        }
-        transformedCart.lines = lines;
-        transformedCart.total = newCart.total;
-
-        //update price amount
-        this.setState({totalPrice:newCart.total.amount});  
-        return transformedCart;
-    }
-
-    updateAvailableSkus(availableSkus){
-        this.setState({availableSkus:availableSkus});
-    }
+  
 
     updateCart(){
         const cartArticles = this.state.cartArticles;
@@ -140,13 +83,10 @@ class CatalogPage extends Component {
         this.updateAvailableSkus(uniqueSkus);
         axios.put( '/cart',cart )
         .then( response => {
-           const newCart = response.data; 
-           console.log("newCart ", newCart);
+           const newCart = response.data;  
            let transformedCart = this.transformServerCart(newCart);
            this.setState({transformedCart:transformedCart});
-           window.localStorage.newCart = JSON.stringify(transformedCart);
-           
-           console.log("transformedCart 0", transformedCart);
+           window.localStorage.newCart = JSON.stringify(transformedCart); 
         } )
         .catch( error => {
             console.log(error);

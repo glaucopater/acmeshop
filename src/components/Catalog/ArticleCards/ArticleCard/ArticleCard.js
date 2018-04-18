@@ -2,13 +2,11 @@ import React from 'react';
 
 import classes from './ArticleCard.css'; 
 
-const articleCard = (props) => { 
-    
-    
+const articleCard = (props) => {  
     const imageStyle = {
-        backgroundImage: 'url(' + props.image + ')' 
-    } 
-
+        backgroundImage: 'url(' + props.image + ')',
+        backgroundSize: '300px 300px' 
+    }  
     return (   
     <div className={classes.ArticleCard} style={imageStyle}> 
           <footer>    
