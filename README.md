@@ -6,13 +6,12 @@ Package Used
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 [Axios](https://www.npmjs.com/package/react-axios) package was used for ajax calls.
 React Router Dom for routing multiple pages.
-
+For testing [Enzyme](https://github.com/airbnb/enzyme) is used.
 
 Styling
 ===
 
 For styling ['CSS Modules'](https://github.com/gajus/react-css-modules)  were used (standard procedure: eject of the project, config changes...)
-
 
 
 ## Structure of the Web Application
@@ -56,3 +55,6 @@ Any time a cart is updated, the data are stored in a Local Storage (the window.l
 The user can add or remove any article or change the quantity inside the cart page.
 If there is at list an item inside the cart, the user can checkout.
 After the checkout the cart information are delete from the browser and the user is redirect to the catalog page.
+
+
+
