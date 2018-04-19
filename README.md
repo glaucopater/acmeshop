@@ -1,6 +1,6 @@
 ## A.C.M.E. Shop Documentation
 
-Package Used
+Main packages used:
 ===
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
