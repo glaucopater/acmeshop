@@ -1,5 +1,21 @@
 ## A.C.M.E. Shop Documentation
 
+Installation
+===
+
+* Run from command line "npm install" (to get npm packages)
+
+Run the application
+===
+
+* Run from command line "npm start"
+
+Run the test(s)
+===
+
+* Run from command line "npm test" 
+
+
 Main packages used:
 ===
 
