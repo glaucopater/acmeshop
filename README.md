@@ -4,24 +4,24 @@ Package Used
 ===
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
-Axios package was used for ajax calls.
+[Axios](https://www.npmjs.com/package/react-axios) package was used for ajax calls.
 React Router Dom for routing multiple pages.
 
 
 Styling
 ===
 
-For styling CSS Modules were used (standard procedure: eject of the project, config changes...)
+For styling ['CSS Modules'](https://github.com/gajus/react-css-modules)  were used (standard procedure: eject of the project, config changes...)
 
 
 
-##Structure of the Web Application
+## Structure of the Web Application
+
+
+Containers (stateful components)
 ===
 
-Containers (statefull components)
-===
-
-Statefull Page component with three extensions Catalog, Article Page and Cart.
+Stateful Page component with three extensions Catalog, Article Page and Cart.
 Poc of a Checkout and an Orders page (modal popup)
 
 Components (stateless components)
