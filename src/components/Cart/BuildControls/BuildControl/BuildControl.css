@@ -25,6 +25,7 @@
     cursor: pointer;
     outline: none;
     border-radius: 50%;
+    padding:0;
 } 
 
 .BuildControl button:disabled {
@@ -51,8 +52,8 @@
     color: #4A4A4A;
 }
 
-.Link:hover{
-    text-decoration: underline;
+.Link:hover{ 
+    color: black;
 }
 
 .BuildControl .Less {   
@@ -64,13 +65,12 @@
 }
 
 .BuildControl .Less:hover, .BuildControl .Less:active {  
-    background-color: #DAA972;
-    color: white;
+    background-color: beige; 
 }
 
 .BuildControl .More:hover,.BuildControl .More:active {
-    background-color: #99703F;
-    color: white;
+    background-color:beige;
+     
 }
  
 .BuildControl .Image{

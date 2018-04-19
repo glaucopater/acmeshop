@@ -28,9 +28,8 @@
     color: #4A4A4A; 
 }
 
-.ArticleLink:hover{
-  text-decoration: underline;
-  color: #4A4A4A;
+.ArticleLink:hover{ 
+  color: black;
 }
  
 .Price{

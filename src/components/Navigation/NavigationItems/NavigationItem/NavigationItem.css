@@ -14,8 +14,8 @@
 }
 
 
-.NavigationItem a:hover{
-    text-decoration: underline;
+.NavigationItem a:hover{ 
+    color: beige;
 }
 
 .NavigationItem a:active,
