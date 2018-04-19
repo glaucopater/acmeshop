@@ -3,10 +3,10 @@
 Main packages used:
 ===
 
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
-[Axios](https://www.npmjs.com/package/react-axios) package was used for ajax calls.
-React Router Dom for routing multiple pages.
-For testing [Enzyme](https://github.com/airbnb/enzyme) is used.
+* This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+* [Axios](https://www.npmjs.com/package/react-axios) package was used for ajax calls.
+* React Router Dom for routing multiple pages.
+* For testing [Enzyme](https://github.com/airbnb/enzyme) is used.
 
 Styling
 ===
