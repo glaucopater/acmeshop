@@ -35,5 +35,5 @@ const cart = ( props ) => {
         </div>
     );
 };
-
+ 
 export default cart;

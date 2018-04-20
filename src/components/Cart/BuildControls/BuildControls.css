@@ -31,7 +31,7 @@
 }
 
 .OrderButton:hover, .OrderButton:active {
-    background-color: #C7C6C6;
+    background-color: beige;
     border: 1px solid #ededed; 
 }
 

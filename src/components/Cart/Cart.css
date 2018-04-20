@@ -1,7 +1,15 @@
+
+.Cart{
+    padding: 26px;
+    margin: 10px auto;
+    max-width: 1072px;
+    border: 1px solid red;
+}
+
 h1  {
     padding:0 50px;
     color: #4A4A4A;
-}
+} 
  
 h2 {  
     margin: 20px 0px;

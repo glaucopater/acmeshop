@@ -1,5 +1,7 @@
 .Catalog { 
     padding: 26px;
-    margin: 10px;  
+    margin: 10px auto;
+    max-width: 1072px;
+    text-align: center;
 }
 
